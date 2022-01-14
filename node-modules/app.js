@@ -30,7 +30,8 @@ const rl = readline.createInterface({
 
 rl.question('Masukkan nama Anda: ', (nama) => {
   rl.question('Masukkan nomer hp Anda: ', (noHP) => {
-      const contact = {nama, noHP}
+      rl.question('Masukkan Umur Anda: ', (umur) => {
+        const contact = {nama, noHP, umur}
 
       const file = fs.readFileSync('contact.json', 'utf8')
 
@@ -43,5 +44,6 @@ rl.question('Masukkan nama Anda: ', (nama) => {
       console.log('Terimakasih Data Anda berhasil ditambahkan')
 
       rl.close()
+      })
   })
 })
