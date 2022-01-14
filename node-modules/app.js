@@ -1,5 +1,6 @@
 // file system
 const fs = require('fs')
+const { stdin } = require('process')
 
 // menuliskan string ke file synchorous
 // fs.writeFileSync('test.txt', 'Hallo ini text string ke file menggunakan metode synchorous')
@@ -20,24 +21,27 @@ const fs = require('fs')
 
 
 // ---------------- Readline ----------------------
-const rl = require('readline')
+const readline = require('readline')
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
 
 rl.question('Masukkan nama Anda: ', (nama) => {
-  rl.question('Masukkan nomer hp Anda: ', (noHP)=> {
-    rl.question('Masukkan umur Anda: ', (umur) => {
-      const contact = {
-        nama,
-        noHP,
-        umur
-      }
+  rl.question('Masukkan nomer hp Anda: ', (noHP) => {
+      const contact = {nama, noHP}
 
-      const file = fs.readFileSync('contact.json', 'utf-8')
+      const file = fs.readFileSync('contact.json', 'utf8')
 
       const contacts = JSON.parse(file)
 
       contacts.push(contact)
 
-      console.log(fs.writeFileSync('contacts.json', JSON.stringify(contacts)))
-    })
+      fs.writeFileSync('contact.json', JSON.stringify(contacts))
+
+      console.log('Terimakasih Data Anda berhasil ditambahkan')
+
+      rl.close()
   })
 })
